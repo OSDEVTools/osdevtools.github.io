@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QEMU Log Filter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        h2, h3 {
+            color: #333;
+        }
+
+        textarea, pre {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        @media (max-width: 700px) {
+            .container {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>Log Filter</h2>
+    <textarea id="logInput" placeholder="Paste your log here..."></textarea><br>
+    <button onclick="filterLog()">Filter Log</button>
+    <h3>Filtered Log:</h3>
+    <pre id="filteredLog"></pre>
+
+    <script>
+        function filterLog() {
+            var log = document.getElementById('logInput').value;
+            var regex = /Servicing hardware INT=0x20[\s\S]*?EFER=.*(?:\r\n|\r|\n)/g;
+            var filteredLog = log.replace(regex, '');
+            document.getElementById('filteredLog').textContent = filteredLog;
+        }
+    </script>
+</body>
+</html>
